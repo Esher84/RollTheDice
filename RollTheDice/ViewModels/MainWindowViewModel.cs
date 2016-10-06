@@ -22,8 +22,18 @@ namespace RollTheDice.ViewModels
         public ObservableCollection<PlayerViewModel> Players { get; private set; }
         public ICommand AddNewPlayerCommand { get; private set; }
         public ICommand RemovePlayerCommand { get; private set; }
-        public PlayerViewModel SelectedPlayer { get; set; }
 
+        public PlayerViewModel SelectedPlayer
+        {
+            get { return _selectedPlayer; }
+            set
+            {
+                _selectedPlayer = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private PlayerViewModel _selectedPlayer;
         public bool CanAddNewPlayer()
         {
             return Players.Count < 6;

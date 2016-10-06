@@ -80,7 +80,20 @@
                 </Style>
             </ListBox.Resources>
             <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="PreviewGotKeyboardFocus">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <BooleanAnimationUsingKeyFrames
+                        Storyboard.TargetProperty="(ListBoxItem.IsSelected)">
+
+                                        <DiscreteBooleanKeyFrame KeyTime="0" Value="True"/>
+                                    </BooleanAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Style.Triggers>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
@@ -88,6 +101,7 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
+
                 </Style>
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
@@ -101,7 +115,6 @@
                         </Grid.ColumnDefinitions>
                         <Border CornerRadius="20" BorderThickness="3" BorderBrush="Black" Background="{Binding Background, Mode=TwoWay}">
                             <TextBlock x:Name="PlayerNameTextBox"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40" FontWeight="Bold" Text="{Binding PlayerLevel}" Margin="5" />
-                                   
                         </Border>
                         <TextBox Grid.Column="1" Grid.Row="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="30" FontWeight="Bold" Text="{Binding PlayerName}" Margin="5" BorderThickness="3" BorderBrush="Black" >
                             <i:Interaction.Behaviors>
@@ -123,8 +136,9 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Content="Add Player" FontSize="35" FontWeight="Bold" Command="{Binding AddNewPlayerCommand}" Margin="10" >
+            <Button Grid.Column="1" Content="Add" FontSize="35" FontWeight="Bold" Command="{Binding AddNewPlayerCommand}" Margin="9,10,11,10" >
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="3" BorderBrush="Black" Background="White">
@@ -133,8 +147,18 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <!--<Button Content="Remove Player" Margin="10" Command="{Binding RemovePlayerCommand}" />-->
+            <Button Grid.Column="2" Content="Remove" FontSize="35" FontWeight="Bold" Command="{Binding RemovePlayerCommand}" Margin="9,10,11,10" >
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="3" BorderBrush="Black" Background="White">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Content" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </Grid>
     </Grid>
 </Window>
+
+
 
