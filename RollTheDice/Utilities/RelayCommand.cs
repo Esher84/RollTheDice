@@ -44,6 +44,7 @@ namespace RollTheDice.Utilities
 
         #endregion
 
+
         #region ICommand Members
 
         ///<summary>
