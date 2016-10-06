@@ -65,6 +65,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Utilities\BooleanToVisibilityConverter.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="Utilities\SelectAllTextboxBehavior.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

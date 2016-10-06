@@ -1,4 +1,4 @@
-﻿<Window x:Class="RollTheDice.MainWindow"
+﻿<Window x:Class="RollTheDice.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,9 +6,10 @@
         mc:Ignorable="d"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:utilities="clr-namespace:RollTheDice.Utilities"
-        Title="Munchkin" Height="350" Width="600" MinHeight="350" MinWidth="600"
+        Title="Roll the Dice" Height="350" Width="600" MinHeight="350" MinWidth="600"
         WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Window.Resources>
+        <utilities:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <Style TargetType="Ellipse">
             <Setter Property="Margin" Value="7" />
             <Setter Property="Fill" Value="Black"></Setter>
@@ -26,6 +27,11 @@
             </Setter>
         </Style>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding RemovePlayerCommand}" Key="D" Modifiers="Control"/>
+        <KeyBinding Command="{Binding AddNewPlayerCommand}" Key="N" Modifiers="Control"/>
+        <KeyBinding Command="{Binding RollDiceCommand}" Key="R" Modifiers="Control" />
+    </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -48,13 +54,22 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <Ellipse x:Name="OneOne"/>
+                <Ellipse x:Name="OneOne" Visibility="{Binding IsOneOneVisible, Converter={StaticResource BoolToVisibilityConverter}, Mode=TwoWay}" />
+                <Ellipse x:Name="ThreeOne" Grid.Row="0" Grid.Column="2" Visibility="{Binding IsThreeOneVisible, Converter={StaticResource BoolToVisibilityConverter}, Mode=TwoWay}" />
+                <Ellipse x:Name="ThreeTwo" Grid.Row="1"  Grid.Column="2" Visibility="{Binding IsThreeTwoVisible, Converter={StaticResource BoolToVisibilityConverter}, Mode=TwoWay}" />
+                <Ellipse x:Name="ThreeThree" Grid.Row="2"  Grid.Column="2" Visibility="{Binding IsThreeThreeVisible, Converter={StaticResource BoolToVisibilityConverter}, Mode=TwoWay}" />
+                <Ellipse x:Name="TwoTwo" Grid.Row="1"  Grid.Column="1" Margin="7,1,7,13" Visibility="{Binding IsTwoTwoVisible, Converter={StaticResource BoolToVisibilityConverter}, Mode=TwoWay}" />
+                <Ellipse x:Name="OneTwo" Grid.Row="1"  Grid.Column="0" Visibility="{Binding IsOneTwoVisible, Converter={StaticResource BoolToVisibilityConverter}, Mode=TwoWay}" />
+                <Ellipse x:Name="OneThree" Grid.Row="2"  Grid.Column="0" Visibility="{Binding IsOneThreeVisible, Converter={StaticResource BoolToVisibilityConverter}, Mode=TwoWay}" />
+
+
+                <!--<Ellipse x:Name="OneOne"  />
                 <Ellipse x:Name="ThreeOne" Grid.Row="0" Grid.Column="2"/>
                 <Ellipse x:Name="ThreeTwo" Grid.Row="1"  Grid.Column="2"/>
                 <Ellipse x:Name="ThreeThree" Grid.Row="2"  Grid.Column="2" />
-                <Ellipse x:Name="TwoTwo" Grid.Row="1"  Grid.Column="1" />
+                <Ellipse x:Name="TwoTwo" Grid.Row="1"  Grid.Column="1" Margin="7,1,7,13" />
                 <Ellipse x:Name="OneTwo" Grid.Row="1"  Grid.Column="0" />
-                <Ellipse x:Name="OneThree" Grid.Row="2"  Grid.Column="0" />
+                <Ellipse x:Name="OneThree" Grid.Row="2"  Grid.Column="0" />-->
             </Grid>
         </Border>
         <Grid Grid.Column="0" Grid.Row="1" >
@@ -63,7 +78,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button x:Name="RollButton" Style="{StaticResource Button2}" Grid.Column="1" Grid.Row="0" Content="Roll" FontSize="35" FontWeight="Bold"  Click="ButtonBase_OnClick" Margin="10" >
+            <Button x:Name="RollButton" Style="{StaticResource Button2}" Grid.Column="1" Grid.Row="0" Content="Roll" FontSize="35" FontWeight="Bold"  Command="{Binding RollDiceCommand}" Margin="10" >
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="3" BorderBrush="Black" Background="White">
@@ -159,6 +174,10 @@
         </Grid>
     </Grid>
 </Window>
+
+
+
+
 
 
 
